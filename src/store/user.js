@@ -34,7 +34,7 @@ const user = {
        let form = {
           userPermission:
           {
-            menuList:["role1","user","article"],
+            menuList:["role1","role2","article"],
             avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
             roleId:349,
             nickname:"管理员账户--为方便大家登陆测试，请勿修改此号",

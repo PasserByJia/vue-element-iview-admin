@@ -33,7 +33,7 @@ export const asyncRouterMap = [
   {
     path:'/path1',
     component : index,
-    redirect :'/path1/HelloWorld',
+    redirect :'/HelloWorld',
     name:'导航一',
     meta:{title:'导航一',icon:'tree'},
     menu: 'role1',
@@ -61,13 +61,13 @@ export const asyncRouterMap = [
   {
     path:'/path2',
     component : index,
-    redirect :'/path2/page1',
+    redirect :'/page1',
     name:'导航二',
     meta:{title:'导航二',icon:'tree'},
     menu: 'role2',
     children:[
       {
-        path: 'page1',
+        path: '/page1',
         name: 'page1',
         meta: {title: '2-1', icon: 'table'},
         component: page1
