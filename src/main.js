@@ -9,7 +9,7 @@ import 'iview/dist/styles/iview.css';    //引入iview的一些css
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store'
-import axios from 'axios';
+import {default as axios} from './utils/interceptor';
 import './utils/router.js'
 
 
@@ -17,6 +17,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(ElementUI)
 Vue.use(iView)
+Vue.prototype.axios = axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -29,6 +29,10 @@ const user = {
       }
     },
     actions: {
+      //登录
+      Login(){
+
+      },
       // 获取用户信息
       GetInfo({commit, state}) {
        let form = {
@@ -37,7 +41,7 @@ const user = {
             menuList:["role1","role2","article"],
             avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
             roleId:349,
-            nickname:"管理员账户--为方便大家登陆测试，请勿修改此号",
+            nickname:"管理员账户",
             roleName:"ABC",
             permissionList:["article:list","user:list","role:list","role:add"],
             userId:10003
@@ -54,10 +58,14 @@ const user = {
             //生成该用户的新路由json操作完毕之后,调用vue-router的动态新增路由方法,将新路由添加
             router.addRoutes(store.getters.addRouters)
           })
+          resolve()
+        }).catch(error=>{
+            reject(error)
         })
       },
-     
-     
+      // 登出
+      LogOut({commit}) {
+      },
     }
 }
 export default user

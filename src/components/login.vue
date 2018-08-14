@@ -41,9 +41,8 @@
       handleSubmit2(ev) {
           setToken();
           this.$store.dispatch('GetInfo').then(() => {
-              //this.$router.push({path: '/'})
+              this.$router.push({path: '/'})
           })
-          this.$router.push({path: '/'})
       }
     }
   }

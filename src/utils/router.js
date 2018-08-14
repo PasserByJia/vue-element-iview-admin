@@ -8,18 +8,16 @@ router.beforeEach((to, from, next) => {
             next({path: '/'})
           } else if (!store.getters.role) {
             store.dispatch('GetInfo').then(() => {
-              
+                next({...to})
             })
-            next({...to})
           } else {
             next()
           }
-    } else {
-        if(to.path=='/login'){ //如果是登录页面路径，就直接next()
-            next();
-        } else { //不然就跳转到登录；
-            next('/login');
-        }
+    }else if (whiteList.indexOf(to.path) !== -1) {
+        //如果前往的路径是白名单内的,就可以直接前往
+        next()
+    }else {
+        next('/login');
 
     }
 })
