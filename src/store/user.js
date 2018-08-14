@@ -34,19 +34,7 @@ const user = {
 
       },
       // 获取用户信息
-      GetInfo({commit, state}) {
-       let form = {
-          userPermission:
-          {
-            menuList:["role1","role2","article"],
-            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
-            roleId:349,
-            nickname:"管理员账户",
-            roleName:"ABC",
-            permissionList:["article:list","user:list","role:list","role:add"],
-            userId:10003
-          }
-        }
+      GetInfo({commit, state},form) {
         return new Promise((resolve, reject) => {
           //储存用户信息
           commit('SET_USER', form.userPermission);
@@ -65,6 +53,11 @@ const user = {
       },
       // 登出
       LogOut({commit}) {
+        return new Promise((resolve) => {
+            commit('RESET_USER')
+            removeToken()
+            resolve();
+        })
       },
     }
 }

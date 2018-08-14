@@ -24,6 +24,42 @@
           account: '',
           checkPass: ''
         },
+        role1 : {
+          userPermission:
+          {
+            menuList:["role1"],
+            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
+            roleId:349,
+            nickname:"角色一",
+            roleName:"ABC",
+            permissionList:["article:list","user:list","role:list","role:add"],
+            userId:10003
+          }
+        },
+        role2 : {
+          userPermission:
+          {
+            menuList:["role2"],
+            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
+            roleId:349,
+            nickname:"角色二",
+            roleName:"ABC",
+            permissionList:["article:list","user:list","role:list","role:add"],
+            userId:10003
+          }
+        },
+        role3 : {
+          userPermission:
+          {
+            menuList:["role1","role2"],
+            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
+            roleId:349,
+            nickname:"管理员账户",
+            roleName:"ABC",
+            permissionList:["article:list","user:list","role:list","role:add"],
+            userId:10003
+          }
+        },
         rules2: {
           account: [
             { required: true, message: '请输入账号', trigger: 'blur' },
@@ -39,10 +75,20 @@
     },
     methods: {
       handleSubmit2(ev) {
-          setToken();
-          this.$store.dispatch('GetInfo').then(() => {
+         if(this.ruleForm2.account=="1"&&this.ruleForm2.checkPass=="1")
+         {  
+            this.$store.dispatch('GetInfo',this.role1).then(() => {
               this.$router.push({path: '/'})
-          })
+            })
+         }else if(this.ruleForm2.account=="2"&&this.ruleForm2.checkPass=="2"){
+            this.$store.dispatch('GetInfo',this.role2).then(() => {
+              this.$router.push({path: '/'})
+            })
+         }else if(this.ruleForm2.account=="3"&&this.ruleForm2.checkPass=="3"){
+            this.$store.dispatch('GetInfo',this.role3).then(() => {
+              this.$router.push({path: '/'})
+            })
+         }
       }
     }
   }

@@ -1,30 +1,5 @@
-# admin-demo
+# 简易的后台管理模板
 
-> A Vue.js project
+## 2018-08-14 
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+暂未连接后台，前台登录是通过写死的数据登陆的，所以会一个bug，就是刷新页面，菜单栏就会消失，正常现象因为菜单是储存在vuex里的，刷新页面数据就会消失，以后接上后台，或者使用本地持久化技术就不会出现这个现象。这里代码仅仅帮助理解，vuex的使用，vue router如何实现动态路由的功能。
