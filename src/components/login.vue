@@ -1,11 +1,11 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  <el-form :model="LoginForm" :rules="rules2" ref="LoginForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
-    <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+    <el-form-item prop="username">
+      <el-input type="text" v-model="LoginForm.username" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
-    <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+    <el-form-item prop="password">
+      <el-input type="password" v-model="LoginForm.password" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click="handleSubmit2">登录</el-button>
@@ -20,45 +20,9 @@
     data() {
       return {
         logining: false,
-        ruleForm2: {
-          account: '',
-          checkPass: ''
-        },
-        role1 : {
-          userPermission:
-          {
-            menuList:["role1"],
-            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
-            roleId:349,
-            nickname:"角色一",
-            roleName:"ABC",
-            permissionList:["article:list","user:list","role:list","role:add"],
-            userId:10003
-          }
-        },
-        role2 : {
-          userPermission:
-          {
-            menuList:["role2"],
-            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
-            roleId:349,
-            nickname:"角色二",
-            roleName:"ABC",
-            permissionList:["article:list","user:list","role:list","role:add"],
-            userId:10003
-          }
-        },
-        role3 : {
-          userPermission:
-          {
-            menuList:["role1","role2"],
-            avatar: 'http://ww2.sinaimg.cn/orj480/4c5bf3f1gw1f9cophprgwj20hs0hsdgp.jpg',
-            roleId:349,
-            nickname:"管理员账户",
-            roleName:"ABC",
-            permissionList:["article:list","user:list","role:list","role:add"],
-            userId:10003
-          }
+        LoginForm: {
+          username: '',
+          password: ''
         },
         rules2: {
           account: [
@@ -75,20 +39,16 @@
     },
     methods: {
       handleSubmit2(ev) {
-         if(this.ruleForm2.account=="1"&&this.ruleForm2.checkPass=="1")
-         {  
-            this.$store.dispatch('GetInfo',this.role1).then(() => {
-              this.$router.push({path: '/'})
+          this.$store.dispatch('Login',this.LoginForm).then(data => {
+              this.loading = false
+              if ("success" === data.data.returnData) {
+                this.$router.push({path: '/'})
+              } else {
+                this.$message.error("账号/密码错误");
+              }
+            }).catch(() => {
+              this.loading = false
             })
-         }else if(this.ruleForm2.account=="2"&&this.ruleForm2.checkPass=="2"){
-            this.$store.dispatch('GetInfo',this.role2).then(() => {
-              this.$router.push({path: '/'})
-            })
-         }else if(this.ruleForm2.account=="3"&&this.ruleForm2.checkPass=="3"){
-            this.$store.dispatch('GetInfo',this.role3).then(() => {
-              this.$router.push({path: '/'})
-            })
-         }
       }
     }
   }

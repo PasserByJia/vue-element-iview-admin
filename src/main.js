@@ -17,7 +17,6 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(ElementUI)
 Vue.use(iView)
-Vue.prototype.axios = axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

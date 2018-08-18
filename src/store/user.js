@@ -1,6 +1,7 @@
 import store from './'
 import {getToken, removeToken, setToken} from '@/utils/token-util'
 import router from '../router'
+import axios from 'axios'
 
 const user = {
     state: {
@@ -13,10 +14,9 @@ const user = {
     },
     mutations: {
       SET_USER: (state, userInfo) => {
-        state.avatar = userInfo.avatar
         state.nickname = userInfo.nickname;
         state.userId = userInfo.userId;
-        state.role = userInfo.roleName;
+        state.role = userInfo.nickname;
         state.menus = userInfo.menuList;
         state.permissions = userInfo.permissionList;
       },
@@ -30,25 +30,38 @@ const user = {
     },
     actions: {
       //登录
-      Login(){
-
+      Login({commit,state},loginForm){
+        return new Promise((resolve,reject)=>{
+          axios.put("/login",loginForm).then(data => {
+            console.log(data.data.returnData)
+            if(data.data.returnData=="success"){
+              setToken();
+            }
+            resolve(data);
+          }).catch(err => {
+            reject(err)
+          })
+        })
       },
       // 获取用户信息
-      GetInfo({commit, state},form) {
-        return new Promise((resolve, reject) => {
-          //储存用户信息
-          commit('SET_USER', form.userPermission);
-          //cookie保存登录状态,仅靠vuex保存的话,页面刷新就会丢失登录状态
-          setToken();
-          //生成路由
-          let userPermission = form.userPermission ;
-          store.dispatch('GenerateRoutes', userPermission).then(() => {
-            //生成该用户的新路由json操作完毕之后,调用vue-router的动态新增路由方法,将新路由添加
-            router.addRoutes(store.getters.addRouters)
+      GetInfo({commit, state}) {
+        return new Promise((resolve,reject) => {
+          axios.get("/getRes").then(data =>{
+            //储存用户信息
+            commit('SET_USER', data.data.returnData);
+            //cookie保存登录状态,仅靠vuex保存的话,页面刷新就会丢失登录状态
+            setToken();
+            //生成路由
+            let userPermission = data.data.returnData ;
+            store.dispatch('GenerateRoutes', userPermission).then(() => {
+              //生成该用户的新路由json操作完毕之后,调用vue-router的动态新增路由方法,将新路由添加
+              router.addRoutes(store.getters.addRouters)
+              resolve()
+            })
+          }).catch(err =>{
+            reject(err)
           })
-          resolve()
-        }).catch(error=>{
-            reject(error)
+          
         })
       },
       // 登出
