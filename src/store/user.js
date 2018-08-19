@@ -67,9 +67,14 @@ const user = {
       // 登出
       LogOut({commit}) {
         return new Promise((resolve) => {
+          axios.get("/logout").then(data => {
             commit('RESET_USER')
             removeToken()
             resolve();
+          }).catch(err => {
+            this.$message.error("error:500");
+            reject(err)
+          })
         })
       },
     }

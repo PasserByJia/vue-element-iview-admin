@@ -5,8 +5,17 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+  
   name: 'HelloWorld',
+  created(){
+    axios.get("/per1").then(data =>{
+      this.$message(data.data);
+    }).catch(err =>{
+      this.$message.error("error");
+    })
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
