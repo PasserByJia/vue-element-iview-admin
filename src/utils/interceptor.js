@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {Message, MessageBox} from 'element-ui'
-import {getToken} from './token-util'
+import store from '../store'
+import {getToken,removeToken} from './token-util'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_URL, // api的base_url
@@ -18,7 +19,24 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data;
-    return res;
+    //console.log(res.returnCode);
+    if(res.returnCode==="001")
+    {
+      Message({
+        showClose: true,
+        message: res.returnMsg,
+        type: 'error',
+        duration: 500,
+        onClose: () => {
+          store.dispatch('NoLogIn').then(() => {
+            location.reload()// 为了重新实例化vue-router对象 避免bug
+          })
+        }
+      });
+      return Promise.reject("未登录")
+    }
+    //console.log(res.returnData);
+    return res.returnData;
   },
   error => {
     console.error('err' + error)// for debug

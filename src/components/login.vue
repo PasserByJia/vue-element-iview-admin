@@ -41,7 +41,8 @@
       handleSubmit2(ev) {
           this.$store.dispatch('Login',this.LoginForm).then(data => {
               this.loading = false
-              if ("success" === data.data.returnData) {
+              console.log(data)
+              if ("success" === data) {
                 this.$router.push({path: '/'})
               } else {
                 this.$message.error("账号/密码错误");
