@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {Message, MessageBox} from 'element-ui'
 import store from '../store'
-import {getToken,removeToken} from './token-util'
+import router from '../router'
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_URL, // api的base_url
@@ -34,9 +34,25 @@ service.interceptors.response.use(
         }
       });
       return Promise.reject("未登录")
+    }else if(res.returnCode==="403"){
+      Message({
+        showClose: true,
+        message: res.returnMsg,
+        type: 'error',
+        duration: 1000,
+        onClose: () => {
+          router.push({path: '/'})
+        }
+      });
+      return Promise.reject("无权限")
     }
     //console.log(res.returnData);
-    return res.returnData;
+    if(res.returnData){
+      return res.returnData;
+    }else{
+      return res;
+    }
+    
   },
   error => {
     console.error('err' + error)// for debug

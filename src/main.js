@@ -12,7 +12,7 @@ import store from './store'
 import {default as axios} from './utils/interceptor';
 import './utils/router.js'
 
-
+Vue.prototype.axios = axios
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(ElementUI)

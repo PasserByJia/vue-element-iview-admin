@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import axios from 'axios'
+
 export default {
   
   name: 'HelloWorld',
   created(){
-    axios.get("/per1").then(data =>{
-      this.$message(data.data);
+    this.axios.get("/per1").then(data =>{
+      this.$message(data);
     }).catch(err =>{
-      this.$message.error("error");
+      this.$message.error(err);
     })
   },
   data () {
