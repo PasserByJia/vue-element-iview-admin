@@ -10,7 +10,7 @@ import login from '@/components/login'
 import page404 from '@/views/404/404'
 import welcome from '@/components/welcome'
 Vue.use(Router)
-
+//基本路由,主要由无序权限的页面构成
 export const constantRouterMap =[
   {path:'/login',component:login,hidden: true},
   {path: '/404', component: page404, hidden: true},
@@ -26,11 +26,13 @@ export const constantRouterMap =[
   }
 ]
 
+//实际注册到vue-router中的路由(实际上是可变的)
 export default new Router({
   scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })
 
+//需要权限的路由存放在这数组当中
 export const asyncRouterMap = [
   {
     path:'/path1',
@@ -38,6 +40,7 @@ export const asyncRouterMap = [
     redirect :'/HelloWorld',
     name:'导航一',
     meta:{title:'导航一',icon:'tree'},
+    //通过menu确定这个路由需要的角色
     menu: '角色一',
     children:[
       {
