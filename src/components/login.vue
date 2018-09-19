@@ -41,7 +41,7 @@
       handleSubmit2(ev) {
           this.$store.dispatch('Login',this.LoginForm).then(data => {
               this.loading = false
-              console.log(data)
+              //console.log(data)
               if ("success" === data) {
                 this.$router.push({path: '/'})
               } else {

@@ -9,7 +9,7 @@ import page2 from '@/views/nav2/page2'
 import login from '@/components/login'
 import page404 from '@/views/404/404'
 import welcome from '@/components/welcome'
-import cp from '@/views/utils/ChangePassword'
+import pc from '@/views/utils/PersonalCenter'
 Vue.use(Router)
 //基本路由,主要由无序权限的页面构成
 export const constantRouterMap =[
@@ -22,7 +22,7 @@ export const constantRouterMap =[
     redirect: '/welcome',
     hidden: true,
     children:[{
-      path: 'cp', component: cp
+      path: 'pc', component: pc
     }]
   },
   {
