@@ -11,7 +11,7 @@
                 </Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit('checkForm')">确认</Button>
+                <Button type="primary" @click="handleSubmit">确认</Button>
             </FormItem>
         </Form>
     </Card>
@@ -45,6 +45,15 @@
                 }
             }
         },
+         methods: {
+             handleSubmit(){
+                 this.axios.put("/changePassword",this.checkForm).then(data => {
+                    
+                }).catch(err => {
+                    console.log("?????????????????????")
+                })
+            }
+         }
     }
 </script>
 <style>
