@@ -3,7 +3,7 @@
     <Card style="width:320px">
        <Form ref="checkForm" :model="checkForm" :rules="checkRule" >
             <FormItem prop="password">
-                密码<Input type="password" v-model="checkForm.password" placeholder="Password">
+                新密码<Input type="password" v-model="checkForm.password" placeholder="Password">
                 </Input>
             </FormItem>
             <FormItem prop="checkPassword">
@@ -11,7 +11,7 @@
                 </Input>
             </FormItem>
             <FormItem>
-                <Button type="primary" @click="handleSubmit">确认</Button>
+                <Button type="primary" @click="handleSubmit" >确认</Button>
             </FormItem>
         </Form>
     </Card>
@@ -30,6 +30,7 @@
                 }
             };
             return {
+                buts: false,
                 checkForm: {
                     password:'',
                     checkPassword:'',
@@ -47,11 +48,20 @@
         },
          methods: {
              handleSubmit(){
-                 this.axios.put("/changePassword",this.checkForm).then(data => {
+                if(this.checkForm.password==""){
+                    this.$Message.warning('密码不能为空');
+                }else if(this.checkForm.checkPassword==""){
+                    this.$Message.warning('确认密码不能为空');
+                }else if(this.checkForm.password!=this.checkForm.checkPassword){
+                    this.$Message.warning('新密码和确认密码应相同');
+                }else{
+                    this.axios.put("/changePassword",this.checkForm).then(data => {
+                        
+                    }).catch(err => {
+                        console.log("?????????????????????")
+                    })
+                }
                     
-                }).catch(err => {
-                    console.log("?????????????????????")
-                })
             }
          }
     }

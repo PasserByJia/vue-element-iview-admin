@@ -22,7 +22,7 @@ export const constantRouterMap =[
     redirect: '/welcome',
     hidden: true,
     children:[{
-      path: 'pc', component: pc
+      path: 'pc', component: pc,meta: {title: '修改密码'},
     }]
   },
   {
@@ -50,26 +50,26 @@ export const asyncRouterMap = [
     component : index,
     redirect :'/HelloWorld',
     name:'导航一',
-    meta:{title:'导航一',icon:'tree'},
+    meta:{icon:'ios-apps'},
     //通过menu确定这个路由需要的角色
     menu: '角色一',
     children:[
       {
         path: '/HelloWorld',
         name: 'HelloWorld',
-        meta: {title: '1-1', icon: 'table'},
+        meta: {title: '1-1', icon: 'ios-menu'},
         component: HelloWorld
       },
       {
         path: '/test1',
         name: 'test1',
-        meta: {title: '1-2', icon: 'table'},
+        meta: {title: '1-2', icon: 'ios-menu'},
         component: test1
       },
       {
         path: '/test2',
         name: 'test2',
-        meta: {title: '1-3', icon: 'table'},
+        meta: {title: '1-3', icon: 'ios-menu'},
         component: test2
       },
     ]
@@ -79,19 +79,19 @@ export const asyncRouterMap = [
     component : index,
     redirect :'/page1',
     name:'导航二',
-    meta:{title:'导航二',icon:'tree'},
+    meta:{icon:'ios-apps'},
     menu: '角色二',
     children:[
       {
         path: '/page1',
         name: 'page1',
-        meta: {title: '2-1', icon: 'table'},
+        meta: {title: '2-1', icon: 'ios-menu'},
         component: page1
       },
       {
         path: '/page2',
         name: 'page2',
-        meta: {title: '2-2', icon: 'table'},
+        meta: {title: '2-2', icon: 'ios-menu'},
         component: page2
       },
     ]
