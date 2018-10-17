@@ -13,7 +13,7 @@ export default {
       this.$message(data);
     }).catch(err =>{
       this.$message.error(err);
-    })
+    }).bind(this)
   },
   data () {
     return {

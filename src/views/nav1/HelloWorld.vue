@@ -1,96 +1,76 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+    <Table border :columns="columns1" :data="data1"></Table>
+    <Page :total="pageTotal" :current="pageNum" :page-size="pageSize"  show-elevator show-sizer
+                show-total
+                @on-change="handlePage" @on-page-size-change="handlePageSize"></Page>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
+  created(){
+    this.init();
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      columns1: [
+        {
+            type: 'index',
+            width: 60,
+            align: 'center'
+        },
+        {
+            title: '学号',
+            key: 'no'
+        },
+        {
+            title: '姓名',
+            key: 'name'
+        },
+        {
+            title: '年龄',
+            key: 'age'
+        },
+        {
+            title: '班级',
+            key: 'classes'
+        }
+        ,
+        {
+            title: '地址',
+            key: 'address'
+        }
+    ],
+    data1: [],
+    pageNum: 1, //当前的页数， 不能是0
+    pageSize: 10, //当前显示的数据条数
+    pageTotal: 0,
     }
-  }
+  },
+   methods: { 
+     init(){
+       this.axios.get("/pages?pageNum="+this.pageNum+"&pageSize="+this.pageSize).then(data =>{
+          console.log(data);
+          this.data1=data.rows;
+          this.pageTotal = data.total;
+          //this.$message(data);
+        }).catch(err =>{
+          this.$message.error(err);
+        })
+     },
+     handlePage(value) {
+        this.pageNum = value;
+        this.init();
+      },
+      //处理当前页有几条
+      handlePageSize(value) {
+        this.pageSize = value;
+        this.init();
+      },
+   }
 }
 </script>
 
